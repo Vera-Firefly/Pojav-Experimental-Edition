@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -243,7 +244,7 @@ public class LauncherActivity extends BaseActivity {
 
         builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                dialogInterface.dismiss();
+                dialog.dismiss();
             }
         });
 
