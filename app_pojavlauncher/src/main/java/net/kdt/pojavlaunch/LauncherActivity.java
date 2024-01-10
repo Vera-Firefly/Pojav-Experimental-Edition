@@ -3,6 +3,7 @@ package net.kdt.pojavlaunch;
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,6 +48,10 @@ import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 public class LauncherActivity extends BaseActivity {
     public static final String SETTING_FRAGMENT_TAG = "SETTINGS_FRAGMENT";
@@ -194,6 +199,57 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.INSTALL_MODPACK);
         mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
+
+        SharedPreferences prefs = getSharedPreferences("ShowAlertDialog", MODE_PRIVATE);
+        boolean showalertdialog = prefs.getBoolean("showalertdialog", true);
+
+        if (showalertdialog) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            // get time
+            Calendar calendar = Calendar.getInstance();
+            Date currentTime = calendar.getTime();
+
+            // Set the start time and characters of the three time periods respectively
+            String[] periods = {"08:00 -12:00", "12:00 -18:00", "18:00 -22:00"};
+            String[] characters = {"A", "B", "C"};
+
+            // Determine which time period the current time belongs to
+            int currentPeriod = 0;
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            Date startTime, endTime;
+            try {
+                startTime = sdf.parse(periods[0].split("-")[0].trim());
+                endTime = sdf.parse(periods[0].split("-")[1].trim());
+                if (currentTime.after(startTime) && currentTime.before(endTime)) {
+                    currentPeriod = 0;
+                } else {
+                    for (int i =1; i < periods.length; i++) {
+                        startTime = sdf.parse(periods[i].split("-")[0].trim());
+                        endTime = sdf.parse(periods[i].split("-")[1].trim());
+                        if (currentTime.after(startTime) && currentTime.before(endTime)) {
+                            currentPeriod = i;
+                            break;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        // Set the content of the pop-up window to the characters of the current time period
+        builder.setTitle("Test");
+        builder.setMessage("test：" + characters[currentPeriod]);
+
+        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        }
     }
 
     @Override
