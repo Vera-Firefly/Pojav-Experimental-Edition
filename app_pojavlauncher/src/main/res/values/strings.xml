@@ -433,7 +433,7 @@
     <string name="preference_rendererexp_alertdialog_done">Fuck</string>
     <string name="preference_rendererexp_alertdialog_cancel">Fear</string>
     <string name="preference_alertdialog_know">already know</string>
-    <string name="alertdialog_tipa">Do\'t forget to select the Mesa renderer</string>
+    <string name="alertdialog_tipa">Don\'t forget to select the Mesa renderer</string>
     <string name="alertdialog_tipb">This experimental setting only works for the Mesa renderer</string>
     <string name="alertdialog_tipc">Remember to check if your device supports these features before using them</string>
     <string name="alertdialog_done">Done</string>
