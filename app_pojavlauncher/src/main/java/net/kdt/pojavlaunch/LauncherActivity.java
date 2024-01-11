@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -50,12 +51,11 @@ import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
 
 public class LauncherActivity extends BaseActivity {
     public static final String SETTING_FRAGMENT_TAG = "SETTINGS_FRAGMENT";
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
     public final ActivityResultLauncher<Object> modInstallerLauncher =
             registerForActivityResult(new OpenDocumentWithExtension("jar"), (data)->{
@@ -205,51 +205,36 @@ public class LauncherActivity extends BaseActivity {
         boolean showalertdialog = prefs.getBoolean("showalertdialog", true);
 
         if (showalertdialog) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            Date currentTime = new Date();
+            String currentTimeString = sdf.format(currentTime);
+            String[] timePeriods = {"08:00-12:00", "12:00-16:00", "16:00-20:00"};
+            String[] timePeriodChars = {"A", "B", "C"};
 
-            // get time
-            Calendar calendar = Calendar.getInstance();
-            Date currentTime = calendar.getTime();
-
-            // Set the start time and characters of the three time periods respectively
-            String[] periods = {"08:00 -12:00", "12:00 -18:00", "18:00 -22:00"};
-            String[] characters = {"A", "B", "C"};
-
-            // Determine which time period the current time belongs to
-            int currentPeriod = 0;
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            Date startTime, endTime;
-            try {
-                startTime = sdf.parse(periods[0].split("-")[0].trim());
-                endTime = sdf.parse(periods[0].split("-")[1].trim());
-                if (currentTime.after(startTime) && currentTime.before(endTime)) {
-                    currentPeriod = 0;
-                } else {
-                    for (int i =1; i < periods.length; i++) {
-                        startTime = sdf.parse(periods[i].split("-")[0].trim());
-                        endTime = sdf.parse(periods[i].split("-")[1].trim());
-                        if (currentTime.after(startTime) && currentTime.before(endTime)) {
-                            currentPeriod = i;
-                            break;
-                        }
-                    }
+            int matchedIndex = -1;
+            for (int i =0; i < timePeriods.length; i++) {
+                String[] timeSplit = timePeriods[i].split("-");
+                String startTime = timeSplit[0];
+                String endTime = timeSplit[1];
+                if (isTimeBetween(currentTimeString, startTime, endTime)) {
+                    matchedIndex = i;
+                    break;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
 
-        // Set the content of the pop-up window to the characters of the current time period
-        builder.setTitle("Test");
-        builder.setMessage("test：" + characters[currentPeriod]);
-
-        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Test");
+            if (matchedIndex != -1) {
+                builder.setMessage("test:" + timePeriodChars[matchedIndex]);
+            } else {
+            builder.setMessage("None");
             }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
+            builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
         }
     }
 
@@ -381,5 +366,19 @@ public class LauncherActivity extends BaseActivity {
         mDeleteAccountButton = findViewById(R.id.delete_account_button);
         mAccountSpinner = findViewById(R.id.account_spinner);
         mProgressLayout = findViewById(R.id.progress_layout);
+    }
+
+    private boolean isTimeBetween(String currentTime, String startTime, String endTime) {
+        try {
+            Date currentDate = sdf.parse(currentTime);
+            Date startDate = sdf.parse(startTime);
+            Date endDate = sdf.parse(endTime);
+            if (currentDate.after(startDate) && currentDate.before(endDate)) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
