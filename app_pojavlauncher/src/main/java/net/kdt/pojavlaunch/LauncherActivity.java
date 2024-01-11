@@ -206,8 +206,20 @@ public class LauncherActivity extends BaseActivity {
         if (showalertdialog) {
             Date currentTime = new Date();
             String currentTimeString = sdf.format(currentTime);
-            String[] timePeriods = {"08:00-12:00", "12:00-16:00", "16:00-20:00"};
-            String[] timePeriodChars = {"A", "B", "C"};
+            String[] timePeriods = {
+            "00:00-06:00",
+            "06:00-09:00",
+            "12:30-14:00",
+            "17:30-19:30",
+            "23:00-24:00"
+            };
+            String[] timePeriodChars = {
+            getString(R.string.ad_time_aaa),
+            getString(R.string.ad_time_aab),
+            getString(R.string.ad_time_aac),
+            getString(R.string.ad_time_aad),
+            getString(R.string.ad_time_aae)
+            };
 
             int matchedIndex = -1;
             for (int i =0; i < timePeriods.length; i++) {
@@ -221,13 +233,13 @@ public class LauncherActivity extends BaseActivity {
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Test");
+            builder.setTitle("Firefly:");
             if (matchedIndex != -1) {
-                builder.setMessage("test:" + timePeriodChars[matchedIndex]);
+                builder.setMessage(timePeriodChars[matchedIndex]);
             } else {
-            builder.setMessage("None");
+            builder.setMessage(getString(R.string.ad_time_aaf));
             }
-            builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getString(R.string.alertdialog_done), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
