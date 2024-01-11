@@ -1,7 +1,6 @@
 package net.kdt.pojavlaunch;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
