@@ -376,7 +376,7 @@
     <string name="preference_renderer_setup_default">使用默认配置</string>
     <!-- Dialog box prompt -->
     <string name="preference_rendererexp_alertdialog_warning">警告</string>
-    <string name="preference_rendererexp_alertdialog_message">您已打开实验性设置,此功能可能会产生意想不到bug,是否继续使用?</string>
+    <string name="preference_rendererexp_alertdialog_message">您已打开实验性设置,此功能可能会产生意想不到的bug,是否继续使用?</string>
     <string name="preference_rendererexp_alertdialog_done">不要管我</string>
     <string name="preference_rendererexp_alertdialog_cancel">畏惧</string>
     <string name="preference_alertdialog_know">我已知晓</string>
