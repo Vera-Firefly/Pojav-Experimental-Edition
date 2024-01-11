@@ -220,7 +220,7 @@ public class LauncherActivity extends BaseActivity {
                 }
             }
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Test");
             if (matchedIndex != -1) {
                 builder.setMessage("test:" + timePeriodChars[matchedIndex]);
