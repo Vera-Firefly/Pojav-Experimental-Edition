@@ -14,8 +14,8 @@ import android.widget.Toast;
 import androidx.preference.Preference;
 
 import com.kdt.pickafile.FileListView;
+import net.kdt.pojavlaunch.LauncherActivity;
 import net.kdt.pojavlaunch.R;
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.Tools;
 import org.apache.commons.io.IOUtils;
 
