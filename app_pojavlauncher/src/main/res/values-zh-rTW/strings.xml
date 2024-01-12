@@ -251,6 +251,7 @@
     <string name="alertdialog_tipc">在使用這些功能之前,請記得檢查你的設備是否支持這些功能!</string>
     <string name="alertdialog_done">確定</string>
     <string name="alertdialog_cancel">取消</string>
+    <string name="alertdialog_firefly">打開啟動器時的彈窗 (默認: 開啟)</string>
     <string name="ad_time_aaa">淩晨時刻\n你真是個奇怪的傢夥!</string>
     <string name="ad_time_aab">清晨的時光總是美好的\n歡迎使用PojavLauncher!</string>
     <string name="ad_time_aac">午間總是很疲憊的\n小睡一會兒再來吧!</string>
