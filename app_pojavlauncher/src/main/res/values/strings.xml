@@ -438,6 +438,7 @@
     <string name="alertdialog_tipc">Remember to check if your device supports these features before using them</string>
     <string name="alertdialog_done">Done</string>
     <string name="alertdialog_cancel">Cancel</string>
+    <string name="alertdialog_firefly">Show Alertdialog when the launcher is opened (Default: Open)</string>
     <string name="ad_time_aaa">It\'s the wee hours of the morning.\nYou\'re a strange guy!</string>
     <string name="ad_time_aab">The time in the morning always represents beauty.\nWelcome to PojavLauncher</string>
     <string name="ad_time_aac">Noon time always so tired.\nTake a nap and come back!</string>

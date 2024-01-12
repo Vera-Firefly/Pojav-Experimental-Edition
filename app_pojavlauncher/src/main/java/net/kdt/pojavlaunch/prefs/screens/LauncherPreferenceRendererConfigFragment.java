@@ -111,7 +111,8 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
 
         // Create AlertDialog. Builder and set popup content
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("Tip:" + randomCharacter);
+        builder.setTitle("Tip:");
+        builder.setMessage(randomCharacter);
 
         // Set the pop-up window button
         builder.setPositiveButton(getString(R.string.preference_alertdialog_know), new DialogInterface.OnClickListener() {
