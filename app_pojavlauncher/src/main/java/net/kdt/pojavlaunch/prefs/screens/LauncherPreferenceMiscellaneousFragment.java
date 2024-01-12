@@ -14,7 +14,6 @@ import android.widget.Toast;
 import androidx.preference.Preference;
 
 import com.kdt.pickafile.FileListView;
-import net.kdt.pojavlaunch.LauncherActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import org.apache.commons.io.IOUtils;
@@ -87,11 +86,11 @@ public class LauncherPreferenceMiscellaneousFragment extends LauncherPreferenceF
             boolean isFireflyAlertDialogEnabled = p.getBoolean("FireflyAlertDialog", false);
 
             if (isFireflyAlertDialogEnabled) {
-                SharedPreferences.Editor editor = prefs.edit();
+                SharedPreferences.Editor editor = p.edit();
                 editor.putBoolean("showalertdialog", true);
                 editor.apply();
             } else {
-                SharedPreferences.Editor editor = prefs.edit();
+                SharedPreferences.Editor editor = p.edit();
                 editor.putBoolean("showalertdialog", false);
                 editor.apply();
             }
