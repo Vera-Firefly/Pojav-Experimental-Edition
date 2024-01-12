@@ -1,5 +1,7 @@
 package net.kdt.pojavlaunch;
 
+import static net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_SHOW_FIREFLY_AD;
+
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Context;
