@@ -200,10 +200,7 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
 
-        SharedPreferences prefs = getSharedPreferences("ShowAlertDialog", MODE_PRIVATE);
-        boolean showalertdialog = prefs.getBoolean("showalertdialog", true);
-
-        if (showalertdialog) {
+        if (PREF_SHOW_FIREFLY_AD) {
             Date currentTime = new Date();
             String currentTimeString = sdf.format(currentTime);
             String[] timePeriods = {
@@ -233,7 +230,7 @@ public class LauncherActivity extends BaseActivity {
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Firefly:");
+            builder.setTitle("Firefly");
             if (matchedIndex != -1) {
                 builder.setMessage(timePeriodChars[matchedIndex]);
             } else {
