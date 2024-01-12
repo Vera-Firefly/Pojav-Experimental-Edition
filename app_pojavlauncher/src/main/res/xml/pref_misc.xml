@@ -39,8 +39,8 @@
         <SwitchPreference
             android:defaultValue="true"
             android:key="FireflyAlertDialog"
-            android:summary="test"
-            android:title="Firefly"/>
+            android:summary="@string/alertdialog_firefly"
+            android:title="Firefly AlertDialog"/>
 
     </PreferenceCategory>
     <Preference
