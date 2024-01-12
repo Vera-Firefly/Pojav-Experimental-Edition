@@ -385,6 +385,7 @@
     <string name="alertdialog_tipc">在使用这些功能之前,请记得检查您的设备是否支持这些功能!</string>
     <string name="alertdialog_done">确定</string>
     <string name="alertdialog_cancel">取消</string>
+    <string name="alertdialog_firefly">打开启动器时的弹窗 (默认: 开启)</string>
     <string name="ad_time_aaa">凌晨时刻\n你真是个奇怪的家伙!</string>
     <string name="ad_time_aab">清晨的时光总是美好的\n欢迎使用Pojav EXP!</string>
     <string name="ad_time_aac">午间总是很疲惫的\n小睡一会儿再来吧!</string>
