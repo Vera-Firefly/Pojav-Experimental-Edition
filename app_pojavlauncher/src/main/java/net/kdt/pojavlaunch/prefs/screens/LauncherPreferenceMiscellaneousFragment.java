@@ -2,6 +2,7 @@ package net.kdt.pojavlaunch.prefs.screens;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.SharedPreferences;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -72,6 +73,26 @@ public class LauncherPreferenceMiscellaneousFragment extends LauncherPreferenceF
                 Toast.makeText(getContext(), R.string.notif_mouse, Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences p, String s) {
+        super.onSharedPreferenceChanged(p, s);
+
+        if (s.equals("FireflyAlertDialog")) {
+            Preference fireflyAlertDialogPreference = requirePreference("FireflyAlertDialog");
+            boolean isFireflyAlertDialogEnabled = p.getBoolean("FireflyAlertDialog", false);
+
+            if (isFireflyAlertDialogEnabled) {
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean("showalertdialog", true);
+                editor.apply();
+            } else {
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean("showalertdialog", false);
+                editor.apply();
             }
         }
     }
