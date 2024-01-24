@@ -512,25 +512,21 @@ public class JREUtils {
         //Separate Treatment for Mesa
         if(LOCAL_RENDERER.equals("vulkan_zink")){
             if(PREF_EXP_SETUP){
-                switch (PREF_EXP_SETUP){
-                case PREF_EXP_SETUP_DEFAULT:
+                if(PREF_EXP_SETUP_DEFAULT
+                || PREF_EXP_SETUP_FD){
                     renderLibrary = "libOSMesa_8.so";
-                    break;
-                case PREF_EXP_SETUP_VIRGL:
+                }
+                if(PREF_EXP_SETUP_VIRGL){
                     renderLibrary = "libOSMesa_81.so";
-                    break;
-                case PREF_EXP_SETUP_LW:
+                }
+                if(PREF_EXP_SETUP_LW){
                     renderLibrary = "libOSMesa_82.so";
-                    break;
-                case PREF_EXP_SETUP_PAN:
+                }
+                if(PREF_EXP_SETUP_PAN){
                     renderLibrary = "libOSMesa_pan.so";
-                    break;
-                case PREF_EXP_SETUP_S:
+                }
+                if(PREF_EXP_SETUP_S){
                     renderLibrary = "libOSMesa.so";
-                    break;
-                case PREF_EXP_SETUP_FD:
-                    renderLibrary = "libOSMesa_8.so";
-                    break;
                 }
             } else {
                 renderLibrary = "libOSMesa_8.so";
