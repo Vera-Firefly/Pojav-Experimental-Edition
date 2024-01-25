@@ -516,11 +516,9 @@ public class JREUtils {
                 || PREF_EXP_SETUP_FD){
                     renderLibrary = "libOSMesa_8.so";
                 }
-                if(PREF_EXP_SETUP_VIRGL){
+                if(PREF_EXP_SETUP_VIRGL
+                || PREF_EXP_SETUP_LW){
                     renderLibrary = "libOSMesa_81.so";
-                }
-                if(PREF_EXP_SETUP_LW){
-                    renderLibrary = "libOSMesa_82.so";
                 }
                 if(PREF_EXP_SETUP_PAN){
                     renderLibrary = "libOSMesa_pan.so";
