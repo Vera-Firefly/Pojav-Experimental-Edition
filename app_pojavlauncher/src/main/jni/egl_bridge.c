@@ -238,11 +238,15 @@ bool checkGraphicsLibrary() {
     }
     return check_adreno;
 }
+void* check_is_adreno() {
+    if(!checkGraphicsLibrary()) return NULL;
+}
 #endif
 
 void set_turnip_driver() {
 #ifdef ADRENO_POSSIBLE
-    if(!checkGraphicsLibrary()) {
+    void* startadreno = check_is_adreno();
+    if(startadreno == NULL) {
         printf("Bridge: Your graphics is not Adreno,Turnip driver is not loaded by default\n");
     } else {
         load_vulkan();
