@@ -211,6 +211,9 @@ static void set_vulkan_ptr(void* ptr) {
 }
 
 void load_vulkan() {
+    void* setgraphics = set_turnip_driver();
+    if(setgraphics !=NULL){
+        printf("Bridge: Your graphics are Adreno,start load Turnip driver\n");
     if(getenv("POJAV_ZINK_PREFER_SYSTEM_DRIVER") == NULL && android_get_device_api_level() >= 28) {
     // the loader does not support below that
 #ifdef ADRENO_POSSIBLE
@@ -226,17 +229,22 @@ void load_vulkan() {
     void* vulkan_ptr = dlopen("libvulkan.so", RTLD_LAZY | RTLD_LOCAL);
     printf("OSMDroid: loaded vulkan, ptr=%p\n", vulkan_ptr);
     set_vulkan_ptr(vulkan_ptr);
-}
-
-int set_turnip_driver() {
-    const char* vendor = getenv("GL_VENDOR");
-    const char* renderer = getenv("GL_RENDERER");
-    if (strcmp(vendor, "Qualcomm") == 0 && strstr(renderer, "Adreno") != NULL) {
-        printf("Bridge: Your graphics are Adreno,start load Turnip driver\n");
     } else {
         printf("Bridge: Your graphics is not Adreno,Turnip driver is not loaded by default\n");
     }
-    return 0;
+}
+
+bool checkGraphicsLibrary() {
+    const char* vendor = getenv("GL_VENDOR");
+    const char* renderer = getenv("GL_RENDERER");
+    bool check_adreno = false;
+    if (strcmp(vendor, "Qualcomm") == 0 && strstr(renderer, "Adreno") != NULL) {
+        bool check_adreno = true;
+    }
+    return check_adreno;
+}
+void* set_turnip_driver() {
+    if (!checkGraphicsLibrary()) return NULL;
 }
 
 bool loadSymbolsVirGL() {
@@ -272,7 +280,7 @@ int pojavInitOpenGL() {
         if(getenv("POJAV_EXP_SETUP") != NULL) {
             printf("Bridge: Use Experimental Setup\n");
             if(getenv("POJAV_EXP_SETUP_DEFAULT") != NULL || getenv("POJAV_EXP_SETUP_S") != NULL) {
-                set_turnip_driver();
+                load_vulkan();
                 setenv("GALLIUM_DRIVER","zink",1);
                 printf("Bridge: Use Deafult Config\n");
                 if(getenv("POJAV_ZINK_CRASH_HANDLE") == NULL) {
@@ -323,7 +331,7 @@ int pojavInitOpenGL() {
                 }
             }
         } else {
-            set_turnip_driver();
+            load_vulkan();
             setenv("GALLIUM_DRIVER","zink",1);
             printf("Bridge: Use Deafult Config\n");
             if(getenv("POJAV_ZINK_CRASH_HANDLE") == NULL) {
