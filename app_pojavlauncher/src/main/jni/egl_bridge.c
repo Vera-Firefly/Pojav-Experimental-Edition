@@ -1,5 +1,5 @@
 //
-// Modifile by Vera-Firefly on 30.11.2023.
+// Modifile by Vera-Firefly on 31.01.2024.
 //
 #include <jni.h>
 #include <assert.h>
@@ -228,6 +228,25 @@ void load_vulkan() {
     set_vulkan_ptr(vulkan_ptr);
 }
 
+bool checkGraphicsLibrary() {
+    const char* vendor = glGetString(GL_VENDOR);
+    const char* renderer = glGetString(GL_RENDERER);
+    bool check_adreno = false;
+    if(strcmp(vendor, "Qualcomm") == 0 && strstr(renderer, "Adreno") != NULL) {
+        check_adreno = true; // TODO: check for Turnip support
+    }
+    return check_adreno;
+}
+
+void set_turnip_driver() {
+    if(!checkGraphicsLibrary()) {
+        printf("Bridge: Your graphics is not Adreno,Turnip driver is not loaded by default\n");
+    } else {
+        load_vulkan();
+        printf("Bridge: Your graphics are Adreno,start load Turnip driver\n");
+    }
+}
+
 bool loadSymbolsVirGL() {
     pojav_environ->config_renderer = RENDERER_VIRGL;
     loadSymbols();
@@ -261,7 +280,7 @@ int pojavInitOpenGL() {
         if(getenv("POJAV_EXP_SETUP") != NULL) {
             printf("Bridge: Use Experimental Setup\n");
             if(getenv("POJAV_EXP_SETUP_DEFAULT") != NULL || getenv("POJAV_EXP_SETUP_S") != NULL) {
-                load_vulkan();
+                set_turnip_driver();
                 setenv("GALLIUM_DRIVER","zink",1);
                 printf("Bridge: Use Deafult Config\n");
                 if(getenv("POJAV_ZINK_CRASH_HANDLE") == NULL) {
@@ -312,7 +331,7 @@ int pojavInitOpenGL() {
                 }
             }
         } else {
-            load_vulkan();
+            set_turnip_driver();
             setenv("GALLIUM_DRIVER","zink",1);
             printf("Bridge: Use Deafult Config\n");
             if(getenv("POJAV_ZINK_CRASH_HANDLE") == NULL) {
