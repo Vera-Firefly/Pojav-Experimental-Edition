@@ -229,13 +229,13 @@ void load_vulkan() {
 }
 
 void set_turnip_driver() {
-    char manufacturer[100];
+    char vendor[100];
     char renderer[100];
 
-    scanf("%s", manufacturer);
+    scanf("%s", vendor);
     scanf("%s", renderer);
 
-    if (strcmp(manufacturer, "Qualcomm") == 0 && strstr(renderer, "Adreno") != NULL) {
+    if (strcmp(vendor, "Qualcomm") == 0 && strstr(renderer, "Adreno") != NULL) {
         printf("Bridge: Your graphics are Adreno,start load Turnip driver\n");
         load_vulkan();
     } else {
