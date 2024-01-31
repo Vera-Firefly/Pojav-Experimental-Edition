@@ -229,26 +229,9 @@ void load_vulkan() {
 }
 
 void set_turnip_driver() {
-    char vendor[1024];
-    char renderer[1024];
-
-    // get vendor and renderer information
-    FILE *fp = fopen("/proc/cpuinfo", "r");
-    if (fp == NULL) {
-        printf("Failed to read /proc/cpuinfo.\n");
-        return 1;
-    }
-
-    while (fgets(buf, sizeof(buf), fp)) {
-        if (sscanf(buf, "vendor_id : %[^\n]", vendor) ==1) {
-            printf("Vendor: %s\n", vendor);
-        }
-        if (sscanf(buf, "model name : %[^\n]", renderer) ==1) {
-            printf("Renderer: %s\n", renderer);
-        }
-    }
-    fclose(fp);
-    if (strstr(vendor, "Qualcomm") != NULL && strstr(renderer, "Adreno") != NULL) {
+    const char* vendor = getenv("GL_VENDOR");
+    const char* renderer = getenv("GL_RENDERER");
+    if (strcmp(vendor, "Qualcomm") == 0 && strstr(renderer, "Adreno") != NULL) {
         printf("Bridge: Your graphics are Adreno,start load Turnip driver\n");
         load_vulkan();
     } else {
