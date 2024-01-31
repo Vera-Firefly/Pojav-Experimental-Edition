@@ -228,6 +228,7 @@ void load_vulkan() {
     set_vulkan_ptr(vulkan_ptr);
 }
 
+#ifdef ADRENO_POSSIBLE
 bool checkGraphicsLibrary() {
     const char* vendor = glGetString(GL_VENDOR);
     const char* renderer = glGetString(GL_RENDERER);
@@ -237,6 +238,7 @@ bool checkGraphicsLibrary() {
     }
     return check_adreno;
 }
+#endif
 
 void set_turnip_driver() {
     if(!checkGraphicsLibrary()) {
