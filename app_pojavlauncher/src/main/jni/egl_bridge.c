@@ -229,8 +229,10 @@ void load_vulkan() {
     void* vulkan_ptr = dlopen("libvulkan.so", RTLD_LAZY | RTLD_LOCAL);
     printf("OSMDroid: loaded vulkan, ptr=%p\n", vulkan_ptr);
     set_vulkan_ptr(vulkan_ptr);
+    return;
     } else {
         printf("Bridge: Your graphics is not Adreno,Turnip driver is not loaded by default\n");
+        return;
     }
 }
 
