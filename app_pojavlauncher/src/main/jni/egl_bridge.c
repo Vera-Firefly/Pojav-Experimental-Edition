@@ -243,7 +243,7 @@ bool checkGraphicsLibrary() {
     }
     return check_adreno;
 }
-bool set_turnip_driver() {
+int set_turnip_driver() {
     if (!checkGraphicsLibrary()) return NULL;
 }
 
