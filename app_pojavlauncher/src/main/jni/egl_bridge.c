@@ -229,16 +229,14 @@ void load_vulkan() {
 }
 
 void set_turnip_driver() {
-#ifdef ADRENO_POSSIBLE
-    const char* vendor = glGetString(GL_VENDOR);
-    const char* renderer = glGetString(GL_RENDERER);
+    char* vendor = glGetString(GL_VENDOR);
+    char* renderer = glGetString(GL_RENDERER);
     if (strcmp(vendor, "Qualcomm") == 0 && strstr(renderer, "Adreno") != NULL) {
         printf("Bridge: Your graphics are Adreno,start load Turnip driver\n");
         load_vulkan();
     } else {
         printf("Bridge: Your graphics is not Adreno,Turnip driver is not loaded by default\n");
     }
-#endif
 }
 
 bool loadSymbolsVirGL() {
