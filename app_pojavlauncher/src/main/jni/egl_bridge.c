@@ -13,7 +13,6 @@
 #include <unistd.h>
 
 #include <EGL/egl.h>
-#include <GL/gl.h>
 #include <GL/osmesa.h>
 #include "ctxbridges/egl_loader.h"
 #include "ctxbridges/osmesa_loader.h"
@@ -230,9 +229,9 @@ void load_vulkan() {
 }
 
 void set_turnip_driver() {
-    const char* vendor = glGetString(GL_VENDOR);
-    const char* renderer = glGetString(GL_RENDERER);
-    if (strcmp(vendor, "Qualcomm") == 0 && strstr(renderer, "Adreno") != NULL) {
+    char renderer[100];
+    scanf("%s", renderer)
+    if (strstr(renderer, "Adreno") != NULL) {
         printf("Bridge: Your graphics are Adreno,start load Turnip driver\n");
         load_vulkan();
     } else {
