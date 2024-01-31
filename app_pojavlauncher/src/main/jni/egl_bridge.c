@@ -230,7 +230,7 @@ void load_vulkan() {
 
 void set_turnip_driver() {
     char renderer[100];
-    scanf("%s", renderer)
+    scanf("%s", renderer);
     if (strstr(renderer, "Adreno") != NULL) {
         printf("Bridge: Your graphics are Adreno,start load Turnip driver\n");
         load_vulkan();
