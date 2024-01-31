@@ -228,7 +228,7 @@ void load_vulkan() {
     set_vulkan_ptr(vulkan_ptr);
 }
 
-void set_turnip_driver() {
+int set_turnip_driver() {
     const char* vendor = getenv("GL_VENDOR");
     const char* renderer = getenv("GL_RENDERER");
     if (strcmp(vendor, "Qualcomm") == 0 && strstr(renderer, "Adreno") != NULL) {
@@ -237,6 +237,7 @@ void set_turnip_driver() {
     } else {
         printf("Bridge: Your graphics is not Adreno,Turnip driver is not loaded by default\n");
     }
+    return 0;
 }
 
 bool loadSymbolsVirGL() {
