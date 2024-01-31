@@ -241,8 +241,6 @@ void set_turnip_driver() {
     } else {
         printf("Bridge: Your graphics is not Adreno,Turnip driver is not loaded by default\n");
     }
-
-    return 0;
 }
 
 bool loadSymbolsVirGL() {
