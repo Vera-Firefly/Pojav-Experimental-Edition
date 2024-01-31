@@ -233,7 +233,6 @@ int set_turnip_driver() {
     const char* renderer = getenv("GL_RENDERER");
     if (strcmp(vendor, "Qualcomm") == 0 && strstr(renderer, "Adreno") != NULL) {
         printf("Bridge: Your graphics are Adreno,start load Turnip driver\n");
-        load_vulkan();
     } else {
         printf("Bridge: Your graphics is not Adreno,Turnip driver is not loaded by default\n");
     }
