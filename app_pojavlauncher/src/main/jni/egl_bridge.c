@@ -241,12 +241,14 @@ bool checkGraphicsLibrary() {
 #endif
 
 void set_turnip_driver() {
+#ifdef ADRENO_POSSIBLE
     if(!checkGraphicsLibrary()) {
         printf("Bridge: Your graphics is not Adreno,Turnip driver is not loaded by default\n");
     } else {
         load_vulkan();
         printf("Bridge: Your graphics are Adreno,start load Turnip driver\n");
     }
+#endif
 }
 
 bool loadSymbolsVirGL() {
