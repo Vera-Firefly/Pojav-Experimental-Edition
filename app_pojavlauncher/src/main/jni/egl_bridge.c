@@ -228,31 +228,21 @@ void load_vulkan() {
     set_vulkan_ptr(vulkan_ptr);
 }
 
-#ifdef ADRENO_POSSIBLE
-bool checkGraphicsLibrary() {
-    const char* vendor = glGetString(GL_VENDOR);
-    const char* renderer = glGetString(GL_RENDERER);
-    bool check_adreno = false;
-    if(strcmp(vendor, "Qualcomm") == 0 && strstr(renderer, "Adreno") != NULL) {
-        check_adreno = true; // TODO: check for Turnip support
-    }
-    return check_adreno;
-}
-void* check_is_adreno() {
-    if(!checkGraphicsLibrary()) return NULL;
-}
-#endif
-
 void set_turnip_driver() {
-#ifdef ADRENO_POSSIBLE
-    void* startadreno = check_is_adreno();
-    if(startadreno == NULL) {
-        printf("Bridge: Your graphics is not Adreno,Turnip driver is not loaded by default\n");
-    } else {
+    char manufacturer[100];
+    char renderer[100];
+
+    scanf("%s", manufacturer);
+    scanf("%s", renderer);
+
+    if (strcmp(manufacturer, "Qualcomm") == 0 && strstr(renderer, "Adreno") != NULL) {
         printf("Bridge: Your graphics are Adreno,start load Turnip driver\n");
-        return load_vulkan();
+        load_vulkan();
+    } else {
+        printf("Bridge: Your graphics is not Adreno,Turnip driver is not loaded by default\n");
     }
-#endif
+
+    return 0;
 }
 
 bool loadSymbolsVirGL() {
