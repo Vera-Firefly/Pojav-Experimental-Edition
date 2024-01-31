@@ -246,13 +246,13 @@ void* check_is_adreno() {
 void set_turnip_driver() {
 #ifdef ADRENO_POSSIBLE
     void* startadreno = check_is_adreno();
-#endif
     if(startadreno == NULL) {
         printf("Bridge: Your graphics is not Adreno,Turnip driver is not loaded by default\n");
     } else {
         printf("Bridge: Your graphics are Adreno,start load Turnip driver\n");
         return load_vulkan();
     }
+#endif
 }
 
 bool loadSymbolsVirGL() {
