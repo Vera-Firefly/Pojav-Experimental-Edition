@@ -25,6 +25,7 @@ jobs:
     env:
 
       CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+      VERA_KEYSTORE_PASSWORD: ${{ secrets.VERA_KEYSTORE_PASSWORD }}
 
     steps:
 
