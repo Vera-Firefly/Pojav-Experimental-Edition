@@ -144,9 +144,6 @@ android {
             // debuggable = true
             resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.beta'
             resValue 'string', 'application_package', 'net.kdt.pojavlaunch.beta'
-        }
-        gplay {
-            initWith release
             signingConfig signingConfigs.releaseBuild
         }
     }
