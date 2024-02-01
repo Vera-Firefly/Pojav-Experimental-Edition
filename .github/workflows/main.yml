@@ -116,6 +116,16 @@ jobs:
 
           gradle :app_pojavlauncher:assembleDebug
 
+      - name: Upload release
+        continue-on-error: true
+        if: github.repository_owner == 'Vera-Firefly' && github.ref_name == 'exp_v3'
+        uses: r0adkll/upload-google-play@v1.1.2
+        with:
+          packageName: net.kdt.pojavlaunch.beta
+          releaseFiles: app_pojavlauncher/build/outputs/bundle/gplay/app_pojavlauncher-gplay.aab
+          track: internal
+          inAppUpdatePriority: 5
+
       - name: Upload APK
 
         uses: actions/upload-artifact@v3
