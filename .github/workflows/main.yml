@@ -106,7 +106,7 @@ jobs:
       - name: Build Release
         if: github.repository_owner == 'Vera-Firefly' && github.ref_name == 'exp_v3'
         run: |
-          gradle :app_pojavlauncher:bundleGplay
+          gradle :app_pojavlauncher:assemblerelease
 
       - name: Build Debug.apk
 
@@ -121,10 +121,7 @@ jobs:
         if: github.repository_owner == 'Vera-Firefly' && github.ref_name == 'exp_v3'
         uses: actions/upload-artifact@v3
         with:
-          packageName: net.kdt.pojavlaunch.beta
-          releaseFiles: app_pojavlauncher/build/outputs/bundle/gplay/app_pojavlauncher-gplay.aab
-          track: internal
-          inAppUpdatePriority: 5
+          path: app_pojavlauncher/build/outputs/apk/release/*
 
       - name: Upload APK
 
