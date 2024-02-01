@@ -119,7 +119,7 @@ jobs:
       - name: Upload release
         continue-on-error: true
         if: github.repository_owner == 'Vera-Firefly' && github.ref_name == 'exp_v3'
-        uses: r0adkll/upload-google-play@v1.1.2
+        uses: actions/upload-artifact@v3
         with:
           packageName: net.kdt.pojavlaunch.beta
           releaseFiles: app_pojavlauncher/build/outputs/bundle/gplay/app_pojavlauncher-gplay.aab
