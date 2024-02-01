@@ -98,6 +98,7 @@ android {
             }
             storeFile file("key-store.jks")
             storePassword pwd
+            keyAlias "Firefly"
             keyPassword pwd
         }
     }
