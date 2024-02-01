@@ -103,6 +103,11 @@ jobs:
 
           java-version: '17'
 
+      - name: Build Release
+        if: github.repository_owner == 'Vera-Firefly' && github.ref_name == 'exp_v3'
+        run: |
+          gradle :app_pojavlauncher:bundleGplay
+
       - name: Build Debug.apk
 
         run: |
