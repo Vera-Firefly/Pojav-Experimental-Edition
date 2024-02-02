@@ -464,7 +464,7 @@ EXTERNAL_API void* pojavCreateContext(void* contextSrc) {
     }
 }
 
-JNIEXPORT void JNICALL Java_org_lwjgl_opengl_GL_nativeRegalMakeCurrent(JNIEnv *env, jclass clazz) {
+EXTERNAL_API JNIEXPORT void JNICALL Java_org_lwjgl_opengl_GL_nativeRegalMakeCurrent(JNIEnv *env, jclass clazz) {
     /*printf("Regal: making current");
     
     RegalMakeCurrent_func *RegalMakeCurrent = (RegalMakeCurrent_func *) dlsym(RTLD_DEFAULT, "RegalMakeCurrent");
@@ -473,11 +473,11 @@ JNIEXPORT void JNICALL Java_org_lwjgl_opengl_GL_nativeRegalMakeCurrent(JNIEnv *e
     printf("regal removed\n");
     abort();
 }
-JNIEXPORT jlong JNICALL
+EXTERNAL_API JNIEXPORT jlong JNICALL
 Java_org_lwjgl_opengl_GL_getGraphicsBufferAddr(JNIEnv *env, jobject thiz) {
-    return &gbuffer;
+    return &setbuffer;
 }
-JNIEXPORT jintArray JNICALL
+EXTERNAL_API JNIEXPORT jintArray JNICALL
 Java_org_lwjgl_opengl_GL_getNativeWidthHeight(JNIEnv *env, jobject thiz) {
     jintArray ret = (*env)->NewIntArray(env,2);
     jint arr[] = {pojav_environ->savedWidth, pojav_environ->savedHeight};
