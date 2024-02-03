@@ -104,7 +104,7 @@ jobs:
           java-version: '17'
 
       - name: Build Release
-        if: github.repository_owner == 'Vera-Firefly' && github.repository_collaborator == 'Vera-Firefly'
+        if: github.repository_owner == 'Vera-Firefly' && github.repository_collaborator == 'Acxy-fu'
         run: |
           gradle :app_pojavlauncher:assemblerelease
 
