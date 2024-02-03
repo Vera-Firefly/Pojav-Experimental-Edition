@@ -431,7 +431,7 @@ int pojavInitOpenGL() {
         }
         printf("OSMDroid: width=%i;height=%i, reserving %i bytes for frame buffer\n", pojav_environ->savedWidth, pojav_environ->savedHeight,
                pojav_environ->savedWidth * 4 * pojav_environ->savedHeight);
-        gbuffer = calloc(pojav_environ->savedWidth *4, pojav_environ->savedHeight +1);
+        gbuffer = calloc(pojav_environ->savedWidth *4 * pojav_environ->savedHeight +1);
         if (gbuffer) {
             printf("OSMDroid: created frame buffer\n");
             return 1;
@@ -488,8 +488,8 @@ EXTERNAL_API void pojavSwapBuffers() {
         if(ctx == NULL) {
             printf("Zink: attempted to swap buffers without context!");
         }
-        // OSMesaMakeCurrent_p(ctx,buf.bits,GL_UNSIGNED_BYTE,pojav_environ->savedWidth,pojav_environ->savedHeight);
-        OSMesaMakeCurrent_p(ctx,gbuffer,GL_UNSIGNED_BYTE,pojav_environ->savedWidth,pojav_environ->savedHeight);
+        OSMesaMakeCurrent_p(ctx,buf.bits,GL_UNSIGNED_BYTE,pojav_environ->savedWidth,pojav_environ->savedHeight);
+        // OSMesaMakeCurrent_p(ctx,gbuffer,GL_UNSIGNED_BYTE,pojav_environ->savedWidth,pojav_environ->savedHeight);
         glFinish_p();
         ANativeWindow_unlockAndPost(pojav_environ->pojavWindow);
         ANativeWindow_lock(pojav_environ->pojavWindow,&buf,NULL);
