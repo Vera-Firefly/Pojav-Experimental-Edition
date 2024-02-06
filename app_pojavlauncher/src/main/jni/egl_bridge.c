@@ -74,6 +74,30 @@ void* gbuffer;
 
 void* egl_make_current(void* window);
 
+static void set_vulkan_ptr(void* ptr) {
+    char envval[64];
+    sprintf(envval, "%"PRIxPTR, (uintptr_t)ptr);
+    setenv("VULKAN_PTR", envval, 1);
+}
+
+void load_vulkan() {
+    if(getenv("POJAV_ZINK_PREFER_SYSTEM_DRIVER") == NULL && android_get_device_api_level() >= 28) {
+    // the loader does not support below that
+#ifdef ADRENO_POSSIBLE
+        void* result = load_turnip_vulkan();
+        if(result != NULL) {
+            printf("AdrenoSupp: Loaded Turnip, loader address: %p\n", result);
+            set_vulkan_ptr(result);
+            return;
+        }
+#endif
+    }
+    printf("OSMDroid: loading vulkan regularly...\n");
+    void* vulkan_ptr = dlopen("libvulkan.so", RTLD_LAZY | RTLD_LOCAL);
+    printf("OSMDroid: loaded vulkan, ptr=%p\n", vulkan_ptr);
+    set_vulkan_ptr(vulkan_ptr);
+}
+
 JNIEXPORT void JNICALL
 Java_net_kdt_pojavlaunch_utils_JREUtils_setupBridgeWindow(JNIEnv* env, ABI_COMPAT jclass clazz, jobject surface) {
     pojav_environ->pojavWindow = ANativeWindow_fromSurface(env, surface);
@@ -125,30 +149,6 @@ Java_org_lwjgl_opengl_GL_getNativeWidthHeight(JNIEnv *env, jobject thiz) {
         (*env)->SetIntArrayRegion(env,ret,0,2,arr);
         return ret;
     }
-}
-
-static void set_vulkan_ptr(void* ptr) {
-    char envval[64];
-    sprintf(envval, "%"PRIxPTR, (uintptr_t)ptr);
-    setenv("VULKAN_PTR", envval, 1);
-}
-
-void load_vulkan() {
-    if(getenv("POJAV_ZINK_PREFER_SYSTEM_DRIVER") == NULL && android_get_device_api_level() >= 28) {
-    // the loader does not support below that
-#ifdef ADRENO_POSSIBLE
-        void* result = load_turnip_vulkan();
-        if(result != NULL) {
-            printf("AdrenoSupp: Loaded Turnip, loader address: %p\n", result);
-            set_vulkan_ptr(result);
-            return;
-        }
-#endif
-    }
-    printf("OSMDroid: loading vulkan regularly...\n");
-    void* vulkan_ptr = dlopen("libvulkan.so", RTLD_LAZY | RTLD_LOCAL);
-    printf("OSMDroid: loaded vulkan, ptr=%p\n", vulkan_ptr);
-    set_vulkan_ptr(vulkan_ptr);
 }
 
 EXTERNAL_API void pojavTerminate() {
