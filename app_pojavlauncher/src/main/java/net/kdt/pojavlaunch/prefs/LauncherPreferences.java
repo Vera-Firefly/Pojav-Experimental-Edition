@@ -148,8 +148,8 @@ public class LauncherPreferences {
 
         PREF_SHOW_FIREFLY_AD  = DEFAULT_PREF.getBoolean("FireflyAlertDialog", false);
 
-        PREF_MESA_GL_VERSION = DEFAULT_PREF.getString("mesaGLVersion", "2");
-        PREF_MESA_GLSL_VERSION = DEFAULT_PREF.getString("mesaGLSLVersion", "430");
+        PREF_MESA_GL_VERSION = DEFAULT_PREF.getString("mesaGLVersion", "4.6");
+        PREF_MESA_GLSL_VERSION = DEFAULT_PREF.getString("mesaGLSLVersion", "460");
 
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
         for (String arg : JREUtils.parseJavaArguments(PREF_CUSTOM_JAVA_ARGS)) {
