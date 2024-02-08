@@ -37,7 +37,7 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
 
         // Get RadioGroup Preference for extra
         final PreferenceCategory radioGroupPref = findPreference("radioGroupPref");
-        final PreferenceCategory customMesaVersionPref = findPreference("customMesaVersionPref");
+        final PreferenceCategory customMesaVersion = findPreference("customMesaVersionPref");
         // Adding a Listener for an Option in a RadioGroup
         for (int i = 0; i < radioGroupPref.getPreferenceCount(); i++) {
             final Preference preference = radioGroupPref.getPreference(i);
@@ -64,11 +64,11 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
                 return true;
             });
         }
-        for (int i = 0; i < customMesaVersionPref.getPreferenceCount(); i++) {
-            final Preference custommvs = customMesaVersionPref.getPreference(i);
+        for (int i = 0; i < customMesaVersion.getPreferenceCount(); i++) {
+            final Preference custommvs = customMesaVersion.getPreference(i);
             custommvs.setOnPreferenceClickListener(custommvs1 -> {
                 for (int i12 = 0; i12 < radioGroupPref.getPreferenceCount(); i12++) {
-                    ((SwitchPreference) customMesaVersionPref.getPreference(i12)).setChecked(false);
+                    ((SwitchPreference) customMesaVersion.getPreference(i12)).setChecked(false);
                 }
                 ((SwitchPreference) custommvs1).setChecked(true);
                 return true;
