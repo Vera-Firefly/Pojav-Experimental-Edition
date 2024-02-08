@@ -88,7 +88,7 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
                         builder.setNegativeButton(getString(R.string.preference_rendererexp_alertdialog_cancel), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ((SwitchPreference) custommvs.getKey().equals("ebCustom")).setChecked(false);
+                                ((SwitchPreference) custommvs).setChecked(false);
                             }
                         });
                         AlertDialog dialog = builder.create();
