@@ -40,37 +40,43 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
         // Adding a Listener for an Option in a RadioGroup
         for (int i = 0; i < radioGroupPref.getPreferenceCount(); i++) {
             final Preference preference = radioGroupPref.getPreference(i);
-            preference.setOnPreferenceClickListener(preference1 -> {
-                // Set Selected Status
-                for (int i1 = 0; i1 < radioGroupPref.getPreferenceCount(); i1++) {
-                    ((SwitchPreference) radioGroupPref.getPreference(i1)).setChecked(false);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    // Set Selected Status
+                    for (int i = 0; i < radioGroupPref.getPreferenceCount(); i++) {
+                        ((SwitchPreference) radioGroupPref.getPreference(i)).setChecked(false);
+                    }
+                    ((SwitchPreference) preference).setChecked(true);
+                    // Perform the appropriate action
+                    if (preference.getKey().equals("ZinkF")) {
+                        Toast.makeText(getContext(), R.string.mcl_setting_renderer_default, Toast.LENGTH_SHORT).show();
+                    } else if (preference.getKey().equals("ZinkS")) {
+                        Toast.makeText(getContext(), R.string.mcl_setting_renderer_zinks, Toast.LENGTH_SHORT).show();
+                    } else if (preference.getKey().equals("VulkanLwarlip")) {
+                        Toast.makeText(getContext(), R.string.mcl_setting_renderer_zinkt, Toast.LENGTH_SHORT).show();
+                    } else if (preference.getKey().equals("Rvirpipe")) {
+                        Toast.makeText(getContext(), R.string.mcl_setting_renderer_virgl, Toast.LENGTH_SHORT).show();
+                    } else if (preference.getKey().equals("Rpanfrost")) {
+                        Toast.makeText(getContext(), R.string.mcl_setting_renderer_pan, Toast.LENGTH_SHORT).show();
+                    } else if (preference.getKey().equals("Rfreedreno")) {
+                        Toast.makeText(getContext(), R.string.mcl_setting_renderer_fd, Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
                 }
-                ((SwitchPreference) preference1).setChecked(true);
-                // Perform the appropriate action
-                if (preference1.getKey().equals("ZinkF")) {
-                    Toast.makeText(getContext(), R.string.mcl_setting_renderer_default, Toast.LENGTH_SHORT).show();
-                } else if (preference1.getKey().equals("ZinkS")) {
-                    Toast.makeText(getContext(), R.string.mcl_setting_renderer_zinks, Toast.LENGTH_SHORT).show();
-                } else if (preference1.getKey().equals("VulkanLwarlip")) {
-                    Toast.makeText(getContext(), R.string.mcl_setting_renderer_zinkt, Toast.LENGTH_SHORT).show();
-                } else if (preference1.getKey().equals("Rvirpipe")) {
-                    Toast.makeText(getContext(), R.string.mcl_setting_renderer_virgl, Toast.LENGTH_SHORT).show();
-                } else if (preference1.getKey().equals("Rpanfrost")) {
-                    Toast.makeText(getContext(), R.string.mcl_setting_renderer_pan, Toast.LENGTH_SHORT).show();
-                } else if (preference1.getKey().equals("Rfreedreno")) {
-                    Toast.makeText(getContext(), R.string.mcl_setting_renderer_fd, Toast.LENGTH_SHORT).show();
-                }
-                return true;
             });
         }
         for (int i = 0; i < customMesaVersionPref.getPreferenceCount(); i++) {
             final Preference custommvs = customMesaVersionPref.getPreference(i);
-            custommvs.setOnPreferenceClickListener(custommvs1 -> {
-                for (int i12 = 0; i12 < customMesaVersionPref.getPreferenceCount(); i12++) {
-                    ((SwitchPreference) customMesaVersionPref.getPreference(i12)).setChecked(false);
+            custommvs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference custommvs) {
+                    for (int i = 0; i < customMesaVersionPref.getPreferenceCount(); i++) {
+                        ((SwitchPreference) customMesaVersionPref.getPreference(i)).setChecked(false);
+                    }
+                    ((SwitchPreference) custommvs).setChecked(true);
+                    return true;
                 }
-                ((SwitchPreference) custommvs1).setChecked(true);
-                return true;
             });
         }
     }
@@ -89,12 +95,20 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(getString(R.string.preference_rendererexp_alertdialog_warning));
                 builder.setMessage(getString(R.string.preference_rendererexp_alertdialog_message));
-                builder.setPositiveButton(getString(R.string.preference_rendererexp_alertdialog_done), (dialog, which) -> showPopupDialogWithRandomCharacter());
-                builder.setNegativeButton(getString(R.string.preference_rendererexp_alertdialog_cancel), (dialog, which) -> {
-                    ((SwitchPreference) experimentalSetUpPreference).setChecked(false);
-                    SharedPreferences.Editor editor = p.edit();
-                    editor.putBoolean("ExperimentalSetup", false);
-                    editor.apply();
+                builder.setPositiveButton(getString(R.string.preference_rendererexp_alertdialog_done), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        showPopupDialogWithRandomCharacter();
+                    }
+                });
+                builder.setNegativeButton(getString(R.string.preference_rendererexp_alertdialog_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ((SwitchPreference) experimentalSetUpPreference).setChecked(false);
+                        SharedPreferences.Editor editor = p.edit();
+                        editor.putBoolean("ExperimentalSetup", false);
+                        editor.apply();
+                    }
                 });
                 AlertDialog dialog = builder.create();
                 builder.show();
@@ -134,7 +148,12 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
         builder.setMessage(randomCharacter);
 
         // Set the dialog window button
-        builder.setPositiveButton(getString(R.string.preference_alertdialog_know), (dialogInterface, i) -> dialogInterface.dismiss());
+        builder.setPositiveButton(getString(R.string.preference_alertdialog_know), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
 
         // Create and display dialog
         AlertDialog dialog = builder.create();
@@ -158,18 +177,26 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
 
         // Dialog content
         builder.setView(view);
-        builder.setTitle(getString(R.string.preference_rendererexp_custom_glversion));
-        builder.setPositiveButton(getString(R.string.alertdialog_done), (dialog, which) -> {
-            LauncherPreferences.PREF_MESA_GL_VERSION = mMesaGLVersion.getText().toString();
-            LauncherPreferences.PREF_MESA_GLSL_VERSION = mMesaGLSLVersion.getText().toString();
+        builder.setTitle(getString(R.string.preference_rendererexp_custom_glversion_title));
+        builder.setPositiveButton(getString(R.string.alertdialog_done), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                LauncherPreferences.PREF_MESA_GL_VERSION = mMesaGLVersion.getText().toString();
+                LauncherPreferences.PREF_MESA_GLSL_VERSION = mMesaGLSLVersion.getText().toString();
 
-            LauncherPreferences.DEFAULT_PREF.edit()
+                LauncherPreferences.DEFAULT_PREF.edit()
                     .putString("mesaGLVersion", LauncherPreferences.PREF_MESA_GL_VERSION).apply();
-            LauncherPreferences.DEFAULT_PREF.edit()
+                LauncherPreferences.DEFAULT_PREF.edit()
                     .putString("mesaGLSLVersion", LauncherPreferences.PREF_MESA_GLSL_VERSION).apply();
-            dialog.dismiss();
+                dialog.dismiss();
+            }
         });
-        builder.setNegativeButton(getString(R.string.alertdialog_cancel), (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton(getString(R.string.alertdialog_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
 
         AlertDialog dialog = builder.create();
         dialog.show();
