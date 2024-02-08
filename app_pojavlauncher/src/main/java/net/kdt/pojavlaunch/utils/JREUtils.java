@@ -7,7 +7,6 @@ import static net.kdt.pojavlaunch.Tools.NATIVE_LIB_DIR;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 import static net.kdt.pojavlaunch.Tools.shareLog;
 import static net.kdt.pojavlaunch.prefs.LauncherPreferences.*;
-import static net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceRendererConfigFragment.*;
 
 import android.app.*;
 import android.content.*;
@@ -170,6 +169,10 @@ public class JREUtils {
     }
 
     public static void setJavaEnvironment(Activity activity, String jreHome) throws Throwable {
+        Intent intent = getIntent();
+        String glVersion = intent.getStringExtra("GL_VERSION");
+        String glslVersion = intent.getStringExtra("GLSL_VERSION");
+
         Map<String, String> envMap = new ArrayMap<>();
         envMap.put("POJAV_NATIVEDIR", NATIVE_LIB_DIR);
         envMap.put("JAVA_HOME", jreHome);
