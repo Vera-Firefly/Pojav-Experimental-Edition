@@ -3,9 +3,15 @@ package net.kdt.pojavlaunch.prefs.screens;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 import androidx.preference.*;
 
 import java.util.Random;
@@ -15,10 +21,18 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 // Experimental Settings for Mesa renderer
 public class LauncherPreferenceRendererConfigFragment extends LauncherPreferenceFragment {
 
+    private EditText mMesaGLVersion;
+    private EditText mMesaGLSLVersion;
+
     @Override
     public void onCreatePreferences(Bundle b, String str) {
         addPreferencesFromResource(R.xml.pref_renderexp);
         computeVisibility();
+
+        findPreference("SetGLVersion").setOnPreferenceClickListener((preference) -> {
+            showCustomDialog();
+            return true;
+        });
 
         // Get RadioGroup Preference
         final PreferenceCategory radioGroupPref = findPreference("radioGroupPref");
@@ -124,6 +138,35 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
         });
 
         // Create and display popup
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showSetGLVersionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_mesa_version, null);
+
+        mMesaGLVersion = view.findViewById(R.id.mesa_gl_version);
+        mMesaGLSLVersion = view.findViewById(R.id.mesa_glsl_version);
+
+        builder.setView(view);
+        builder.setTitle("Custom Dialog");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String glVersion = mMesaGLVersion.getText().toString();
+                String glslVersion = mMesaGLSLVersion.getText().toString();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
         AlertDialog dialog = builder.create();
         dialog.show();
     }
