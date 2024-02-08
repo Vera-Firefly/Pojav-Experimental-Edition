@@ -34,8 +34,9 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
             return true;
         });
 
-        // Get RadioGroup Preference
+        // Get RadioGroup Preference for extra
         final PreferenceCategory radioGroupPref = findPreference("radioGroupPref");
+        final PreferenceCategory customMesaVersionPref = findPreference("customMesaVersionPref");
         // Adding a Listener for an Option in a RadioGroup
         for (int i = 0; i < radioGroupPref.getPreferenceCount(); i++) {
             final Preference preference = radioGroupPref.getPreference(i);
@@ -61,6 +62,19 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
                     } else if (preference.getKey().equals("Rfreedreno")) {
                         Toast.makeText(getContext(), R.string.mcl_setting_renderer_fd, Toast.LENGTH_SHORT).show();
                     }
+                    return true;
+                }
+            });
+        }
+        for (int i = 0; i < customMesaVersionPref.getPreferenceCount(); i++) {
+            final Preference custommvs = customMesaVersionPref.getPreference(i);
+            custommvs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference custommvs) {
+                    for (int i = 0; i < radioGroupPref.getPreferenceCount(); i++) {
+                        ((SwitchPreference) customMesaVersionPref.getPreference(i)).setChecked(false);
+                    }
+                    ((SwitchPreference) custommvs).setChecked(true);
                     return true;
                 }
             });
@@ -104,15 +118,19 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
 
     private void computeVisibility(){
         requirePreference("ExpFrameBuffer").setVisible(LauncherPreferences.PREF_EXP_SETUP);
+        requirePreference("ebSystem").setVisible(LauncherPreferences.PREF_EXP_SETUP);
+        requirePreference("ebSpecific").setVisible(LauncherPreferences.PREF_EXP_SETUP);
+        requirePreference("ebCustom").setVisible(LauncherPreferences.PREF_EXP_SETUP);
         requirePreference("ZinkF").setVisible(LauncherPreferences.PREF_EXP_SETUP);
         requirePreference("ZinkS").setVisible(LauncherPreferences.PREF_EXP_SETUP);
         requirePreference("VulkanLwarlip").setVisible(LauncherPreferences.PREF_EXP_SETUP);
         requirePreference("Rvirpipe").setVisible(LauncherPreferences.PREF_EXP_SETUP);
         requirePreference("Rpanfrost").setVisible(LauncherPreferences.PREF_EXP_SETUP);
         requirePreference("Rfreedreno").setVisible(LauncherPreferences.PREF_EXP_SETUP);
+        requirePreference("SetGLVersion").setVisible(LauncherPreferences.PREF_EXP_ENABLE_CUSTOM);
     }
 
-    // Extra popup
+    // Extra dialog
     private void showPopupDialogWithRandomCharacter() {
         //Generate any of there characters
         String[] characters = {
@@ -124,12 +142,12 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
         int index = random.nextInt(characters.length);
         String randomCharacter = characters[index];
 
-        // Create AlertDialog. Builder and set popup content
+        // Create AlertDialog. Builder and set dialog content
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Tip:");
         builder.setMessage(randomCharacter);
 
-        // Set the pop-up window button
+        // Set the dialog window button
         builder.setPositiveButton(getString(R.string.preference_alertdialog_know), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -137,30 +155,34 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
             }
         });
 
-        // Create and display popup
+        // Create and display dialog
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
+    // Custom Mesa GL/GLSL Version
     private void showSetGLVersionDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        // Specify a layout films
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_mesa_version, null);
 
+        // Define symbol content
         mMesaGLVersion = view.findViewById(R.id.mesa_gl_version);
         mMesaGLSLVersion = view.findViewById(R.id.mesa_glsl_version);
 
+        // Dialog content
         builder.setView(view);
-        builder.setTitle("Custom Dialog");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.preference_rendererexp_custom_glversion));
+        builder.setPositiveButton(getString(R.string.alertdialog_done), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String glVersion = mMesaGLVersion.getText().toString();
                 String glslVersion = mMesaGLSLVersion.getText().toString();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.alertdialog_cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
