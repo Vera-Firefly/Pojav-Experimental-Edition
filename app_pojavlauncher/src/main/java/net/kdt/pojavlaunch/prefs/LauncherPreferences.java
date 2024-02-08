@@ -72,7 +72,11 @@ public class LauncherPreferences {
     public static boolean PREF_EXP_SETUP_VIRGL = false;
     public static boolean PREF_EXP_SETUP_PAN = false;
     public static boolean PREF_EXP_SETUP_FD = false;
+
     public static boolean PREF_EXP_FRAME_BUFFER = false;
+    public static boolean PREF_EXP_ENABLE_SYSTEM = false;
+    public static boolean PREF_EXP_ENABLE_SPECIFIC = false;
+    public static boolean PREF_EXP_ENABLE_CUSTOM = false;
 
     public static boolean PREF_VERIFY_MANIFEST = true;
     public static String PREF_DOWNLOAD_SOURCE = "default";
@@ -128,6 +132,10 @@ public class LauncherPreferences {
 
         PREF_ZINK_CRASH_HANDLE = DEFAULT_PREF.getBoolean("zinkCrashhandle", false);
         PREF_EXP_FRAME_BUFFER = DEFAULT_PREF.getBoolean("ExpFrameBuffer", false);
+        PREF_EXP_ENABLE_SYSTEM = DEFAULT_PREF.getBoolean("ebSystem", false);
+        PREF_EXP_ENABLE_SPECIFIC = DEFAULT_PREF.getBoolean("ebSpecific", false);
+        PREF_EXP_ENABLE_CUSTOM = DEFAULT_PREF.getBoolean("ebCustom", false);
+
         PREF_EXP_SETUP = DEFAULT_PREF.getBoolean("ExperimentalSetup", false);
         PREF_EXP_SETUP_DEFAULT = DEFAULT_PREF.getBoolean("ZinkF", false);
         PREF_EXP_SETUP_S = DEFAULT_PREF.getBoolean("ZinkS", false);
@@ -135,7 +143,6 @@ public class LauncherPreferences {
         PREF_EXP_SETUP_VIRGL  = DEFAULT_PREF.getBoolean("Rvirpipe", false);
         PREF_EXP_SETUP_PAN  = DEFAULT_PREF.getBoolean("Rpanfrost", false);
         PREF_EXP_SETUP_FD  = DEFAULT_PREF.getBoolean("Rfreedreno", false);
-
 
         PREF_SHOW_FIREFLY_AD  = DEFAULT_PREF.getBoolean("FireflyAlertDialog", false);
 
