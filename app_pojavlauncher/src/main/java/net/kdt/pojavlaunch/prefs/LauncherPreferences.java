@@ -84,6 +84,8 @@ public class LauncherPreferences {
     public static boolean PREF_VSYNC_IN_ZINK = true;
     public static boolean PREF_SHOW_FIREFLY_AD = false;
 
+    public static String PREF_MESA_GL_VERSION;
+    public static String PREF_MESA_GLSL_VERSION;
 
     public static void loadPreferences(Context ctx) {
         //Required for the data folder.
@@ -145,6 +147,9 @@ public class LauncherPreferences {
         PREF_EXP_SETUP_FD  = DEFAULT_PREF.getBoolean("Rfreedreno", false);
 
         PREF_SHOW_FIREFLY_AD  = DEFAULT_PREF.getBoolean("FireflyAlertDialog", false);
+
+        PREF_MESA_GL_VERSION = DEFAULT_PREF.getString("mesaGLVersion", "2");
+        PREF_MESA_GLSL_VERSION = DEFAULT_PREF.getString("mesaGLSLVersion", "430");
 
         String argLwjglLibname = "-Dorg.lwjgl.opengl.libname=";
         for (String arg : JREUtils.parseJavaArguments(PREF_CUSTOM_JAVA_ARGS)) {

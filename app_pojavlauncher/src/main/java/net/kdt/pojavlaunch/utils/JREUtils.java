@@ -169,9 +169,8 @@ public class JREUtils {
     }
 
     public static void setJavaEnvironment(Activity activity, String jreHome) throws Throwable {
-        Intent intent = getIntent();
-        String glVersion = intent.getStringExtra("GL_VERSION");
-        String glslVersion = intent.getStringExtra("GLSL_VERSION");
+        String glVersion = PREF_MESA_GL_VERSION;
+        String glslVersion = PREF_MESA_GLSL_VERSION;
 
         Map<String, String> envMap = new ArrayMap<>();
         envMap.put("POJAV_NATIVEDIR", NATIVE_LIB_DIR);
