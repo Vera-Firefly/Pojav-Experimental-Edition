@@ -30,7 +30,7 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
         computeVisibility();
 
         findPreference("SetGLVersion").setOnPreferenceClickListener((preference) -> {
-            showCustomDialog();
+            showSetGLVersionDialog();
             return true;
         });
 
