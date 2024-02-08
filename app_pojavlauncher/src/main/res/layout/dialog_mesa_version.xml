@@ -8,18 +8,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MESA GL version:"/>
+        android:text="@string/custom_gl_version"/>
 
     <EditText
         android:id="@+id/mesa_gl_version"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"/>
+        android:inputType="number|numberDecimal"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MESA GLSL version:"/>
+        android:text="@string/custom_glsl_version"/>
 
     <EditText
         android:id="@+id/mesa_glsl_version"
