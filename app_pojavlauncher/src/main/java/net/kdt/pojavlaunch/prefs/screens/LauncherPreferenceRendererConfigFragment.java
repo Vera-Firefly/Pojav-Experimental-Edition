@@ -154,6 +154,9 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
         mMesaGLVersion = view.findViewById(R.id.mesa_gl_version);
         mMesaGLSLVersion = view.findViewById(R.id.mesa_glsl_version);
 
+        mMesaGLVersion.setText(LauncherPreferences.PREF_MESA_GL_VERSION);
+        mMesaGLSLVersion.setText(LauncherPreferences.PREF_MESA_GLSL_VERSION);
+
         // Dialog content
         builder.setView(view);
         builder.setTitle(getString(R.string.preference_rendererexp_custom_glversion));
