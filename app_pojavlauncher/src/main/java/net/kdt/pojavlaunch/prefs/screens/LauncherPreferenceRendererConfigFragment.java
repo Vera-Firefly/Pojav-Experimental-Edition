@@ -1,6 +1,7 @@
 package net.kdt.pojavlaunch.prefs.screens;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -180,6 +181,11 @@ public class LauncherPreferenceRendererConfigFragment extends LauncherPreference
             public void onClick(DialogInterface dialog, int which) {
                 String glVersion = mMesaGLVersion.getText().toString();
                 String glslVersion = mMesaGLSLVersion.getText().toString();
+
+                Intent intent = new Intent(this, JREUtils.class);
+                intent.putExtra("GL_VERSION", glVersion);
+                intent.putExtra("GLSL_VERSION", glslVersion);
+                startActivity(intent);
             }
         });
         builder.setNegativeButton(getString(R.string.alertdialog_cancel), new DialogInterface.OnClickListener() {
